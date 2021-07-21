@@ -1,6 +1,7 @@
 package ar.com.ada.api.aladas.entities;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.*;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
@@ -14,6 +15,9 @@ public class Pasajero extends Persona{
     @Column(name = "pasajero_id")
     private Integer pasajeroId;
 
+    @OneToMany(mappedBy = "pasajero", cascade = CascadeType.ALL, fetch = FetchType.LAZY) //atributo con el que lo voy a relacion en el objeto reserva
+    private List<Reserva> reservas = new ArrayList<>();
+
     public Integer getPasajeroId() {
         return pasajeroId;
     }
@@ -21,5 +25,8 @@ public class Pasajero extends Persona{
     public void setPasajeroId(Integer pasajeroId) {
         this.pasajeroId = pasajeroId;
     }
-    
+    public void agregarReserva(Reserva reserva){ //aca agrego el elemento con el cual estoy haciendo la relacion
+        this.reservas.add(reserva); //esto agrega el objeto reserva a la lista, nos falta...
+        reserva.setPasajero(this); //a la reserva la agrego a Pasajero y al poner this lo asigna a todo el objeto.
+    }
 }

@@ -9,7 +9,7 @@ import ar.com.ada.api.aladas.entities.Pais.PaisEnum.TipoDocuEnum;
 
 @MappedSuperclass
 public abstract class Persona {
-    
+
     private String nombre;
     @Column(name = "tipo_documento_id")
     private Integer tipoDocumentoId;
@@ -21,7 +21,7 @@ public abstract class Persona {
     private Date fechaNacimiento;
 
     @Column(name = "pais_id")
-    private Integer paisId; //Este es enumerado, en java queda igual, cambia en getter/setter
+    private Integer paisId; // Este es enumerado, en java queda igual, cambia en getter/setter
 
     public String getNombre() {
         return nombre;
@@ -55,14 +55,14 @@ public abstract class Persona {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public PaisEnum getPaisId() { //aca es alreves, se cambia paisId a PaisEnum y para que pueda asignarse se pone la 
-        return PaisEnum.parse(paisId); //notacion PaisEnum.parse y entre parentesis el parametro.
+    public PaisEnum getPaisId() { // aca es alreves, se cambia paisId a PaisEnum y para que pueda asignarse se
+                                  // pone la
+        return PaisEnum.parse(paisId); // notacion PaisEnum.parse y entre parentesis el parametro.
     }
 
     public void setPaisId(PaisEnum paisId) {
-        this.paisId = paisId.getValue(); //paisId es Integer del lado iz, por eso del lado derecho le pongo getValue()
-        //y llama del enumerado a ese numero que despues lo asigna a paisId, lado izq.
+        this.paisId = paisId.getValue(); // paisId es Integer del lado iz, por eso del lado derecho le pongo getValue()
+        // y llama del enumerado a ese numero que despues lo asigna a paisId, lado izq.
     }
-    
-    
+
 }
