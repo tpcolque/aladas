@@ -8,7 +8,7 @@ import ar.com.ada.api.aladas.entities.Pais.PaisEnum;
 import ar.com.ada.api.aladas.entities.Pais.PaisEnum.TipoDocuEnum;
 
 @MappedSuperclass
-public abstract class Persona {
+public class Persona {
 
     private String nombre;
     @Column(name = "tipo_documento_id")

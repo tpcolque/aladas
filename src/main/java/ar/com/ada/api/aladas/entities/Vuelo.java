@@ -18,7 +18,7 @@ public class Vuelo {
     private Date fecha;
 
     @Column(name = "estado_vuelo_id")
-    private Integer estadoVueloId;
+    private Integer estadoVueloId;//Esto es un enumerado
 
     private Integer capacidad;
 
@@ -41,4 +41,121 @@ public class Vuelo {
         reserva.setVuelo(this);
     }
 
+
+    public Integer getVueloId() {
+        return vueloId;
+    }
+
+
+    public void setVueloId(Integer vueloId) {
+        this.vueloId = vueloId;
+    }
+
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+
+    public EstadoVueloEnum getEstadoVueloId() {
+        return EstadoVueloEnum.parse(estadoVueloId);
+    }
+
+
+    public void setEstadoVueloId(EstadoVueloEnum estadoVueloId) {
+        this.estadoVueloId = estadoVueloId.getValue();
+    }
+
+
+    public Integer getCapacidad() {
+        return capacidad;
+    }
+
+
+    public void setCapacidad(Integer capacidad) {
+        this.capacidad = capacidad;
+    }
+
+
+    public Integer getAeropuertoOrigen() {
+        return aeropuertoOrigen;
+    }
+
+
+    public void setAeropuertoOrigen(Integer aeropuertoOrigen) {
+        this.aeropuertoOrigen = aeropuertoOrigen;
+    }
+
+
+    public Integer getAeropuertoDestino() {
+        return aeropuertoDestino;
+    }
+
+
+    public void setAeropuertoDestino(Integer aeropuertoDestino) {
+        this.aeropuertoDestino = aeropuertoDestino;
+    }
+
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+
+    public String getCodigoMoneda() {
+        return codigoMoneda;
+    }
+
+
+    public void setCodigoMoneda(String codigoMoneda) {
+        this.codigoMoneda = codigoMoneda;
+    }
+
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
+
+    public enum EstadoVueloEnum{
+        GENERADO(1), ORIGEN_ASIGNADO(2), DESTINO_ASIGNADO(3), TRIPULACION_PREASIGNADA(4),
+        ABIERTO(5), CONFIRMADO(6), REPROGRAMADO(7), CANCELADO(8), CERRADO(9);
+
+        private final Integer value;
+
+        private EstadoVueloEnum(Integer value){
+            this.value = value;
+        }
+
+        public Integer getValue(){
+            return value;
+        }
+        public static EstadoVueloEnum parse(Integer id){
+            EstadoVueloEnum status = null;
+            for (EstadoVueloEnum item : EstadoVueloEnum.values()){
+                if (item.getValue().equals(id)){
+                    status = item;
+                    break;
+                }
+            }
+            return status;
+            }
+        
+
+    }
 }
