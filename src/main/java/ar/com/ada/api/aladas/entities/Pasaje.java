@@ -9,6 +9,21 @@ import javax.persistence.*;
 @Table(name = "pasaje")
 public class Pasaje {
 
+    @Id
+    @Column(name = "pasaje_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer pasajeId;
+
+    @OneToOne
+    @JoinColumn(name = "reserva_id", referencedColumnName = "reserva_id")//el id de reserva llega a pasaje
+    private Reserva reserva;//aca decia reservaid pero la pasamos a reserva porque necesitamos el objeto entero.
+
+    @Column(name = "fecha_emision")
+    private Date fechaEmision;
+
+    @Column(name = "info_pago")
+    private String infoPago;
+
     public Integer getPasajeId() {
         return pasajeId;
     }
@@ -40,21 +55,6 @@ public class Pasaje {
     public void setInfoPago(String infoPago) {
         this.infoPago = infoPago;
     }
-
-    @Id
-    @Column(name = "pasaje_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer pasajeId;
-
-    @OneToOne
-    @JoinColumn(name = "reserva_id", referencedColumnName = "pasaje_id")//el id de reserva llega a pasaje
-    private Reserva reserva;//aca decia reservaid pero la pasamos a reserva porque necesitamos el objeto entero.
-
-    @Column(name = "fecha_emision")
-    private Date fechaEmision;
-
-    @Column(name = "info_pago")
-    private String infoPago;
 
     
 }

@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.hibernate.annotations.NaturalId;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -12,7 +13,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id")
-    private Integer usuarioId; //esto ya es un id con lo cual no tiene sentido ponerle @naturalid
+    private Integer usuarioId; // esto ya es un id con lo cual no tiene sentido ponerle @naturalid
 
     @NaturalId
     private String username;
@@ -20,6 +21,28 @@ public class Usuario {
     private String password;
 
     private String email;
+
+    @Column(name = "fecha_login")
+    private Date fechaLogin;
+
+    @Column(name = "tipo_usuario")
+    private Integer tipoUsuario;
+
+    @OneToOne
+    @JoinColumn(name = "pasajero_id", referencedColumnName = "pasajero_id")
+    private Pasajero pasajero;
+
+    public Pasajero getPasajero() {
+        return pasajero;
+    }
+
+    public void setPasajero(Pasajero pasajero) {
+        this.pasajero = pasajero;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
+    private Staff staff;
 
     public Integer getUsuarioId() {
         return usuarioId;
@@ -61,20 +84,12 @@ public class Usuario {
         this.fechaLogin = fechaLogin;
     }
 
-    public Integer getTipoUsuario() {
-        return tipoUsuario;
+    public TipoUsusarioEnum getTipoUsuario() {
+        return TipoUsusarioEnum.parse(this.tipoUsuario);
     }
 
-    public void setTipoUsuario(Integer tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
-
-    public Integer getPasajeroId() {
-        return pasajeroId;
-    }
-
-    public void setPasajeroId(Integer pasajeroId) {
-        this.pasajeroId = pasajeroId;
+    public void setTipoUsuario(TipoUsusarioEnum tipoUsuario) {
+        this.tipoUsuario = tipoUsuario.getValue();
     }
 
     public Staff getStaff() {
@@ -85,19 +100,30 @@ public class Usuario {
         this.staff = staff;
     }
 
-    @Column(name = "fecha_login")
-    private Date fechaLogin;
+    public enum TipoUsusarioEnum{
+        STAFF(1), PASAJERO(2);
+      
+        private final Integer value;
 
-    @Column(name = "tipo_usuario")
-    private Integer tipoUsuario; 
+        private TipoUsusarioEnum(Integer value){
+            this.value = value;
+        }
 
-    @Column(name = "pasajero_id")
-    private Integer pasajeroId;
-
-    @OneToOne
-    @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
-    private Staff staff;
-
+        public Integer getValue(){
+            return value;
+        }
+        public static TipoUsusarioEnum parse(Integer id){
+            TipoUsusarioEnum status = null;
+            for (TipoUsusarioEnum item : TipoUsusarioEnum.values()){
+                if (item.getValue().equals(id)){
+                    status = item;
+                    break;
+                }
+            }
+            return status;
+        }
+    
+    }
 }
-//el mapped by la lleva la que tiene la PK y no la FK, la FK esta en usuarios
-//aca no va el mappedby!!!!
+// el mapped by la lleva la que tiene la PK y no la FK, la FK esta en usuarios
+// aca no va el mappedby!!!!
