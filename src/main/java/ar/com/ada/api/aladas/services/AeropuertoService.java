@@ -29,4 +29,7 @@ public class AeropuertoService {
         return repo.findAll(); // aca busca a todos a traves del metodo y lo guarda en el repo
         
     }
+    public Aeropuerto buscarPorCodigoIATA(String codigoIATA){
+        return repo.findbycodigoIATA(codigoIATA);
+    }
 }
