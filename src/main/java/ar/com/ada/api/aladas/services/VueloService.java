@@ -53,7 +53,7 @@ public class VueloService {
         return ValidacionVueloDataEnum.OK;
 
     }
-    public boolean validarPrecio(Vuelo vuelo){
+    public boolean validarPrecio(Vuelo vuelo){ //testeo esta funcion primero
         if(vuelo.getPrecio() == null){
             return false;
         }
